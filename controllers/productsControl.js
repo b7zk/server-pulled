@@ -1,6 +1,5 @@
 const { response } = require("express");
-const Producto = require("../models/producto");
-const Categoria = require("../models/categoria");
+const { Categoria, Producto } = require("../models");
 //funciones (callbacks) {
 const productsGet = async (req, res = response) => {
   //aqui desestructurar lo que necesitemos del url
@@ -9,11 +8,23 @@ const productsGet = async (req, res = response) => {
 
   res.json(productos);
 };
+const productGet = async (req, res = response) => {
+  const { id } = req.params;
+
+  const producto = await Producto.findByPk(id);
+
+  if (producto) {
+    res.json(producto);
+  } else {
+    res.status(404).json({
+      msg: `No existe producto ${id}`,
+    });
+  }
+};
 
 //crear
 const productsPost = async (req, res = response) => {
-  const body = req.body; //destructurar lo que se envia en el body
-
+  const body = req.body;
   const categoria = await Categoria.findByPk(body.catgProduct);
 
   if (!categoria) {
@@ -21,6 +32,9 @@ const productsPost = async (req, res = response) => {
       msg: `No existe categoria ${body.catgProduct}`,
     });
   }
+
+  body.nameCProduct = categoria.nameCategoria;
+  console.log(body);
 
   try {
     //comprobar si ya existe la categoria
@@ -101,6 +115,6 @@ module.exports = {
   productsGet,
   productsPost,
   productsPut,
-  /* productsPatch, */
+  productGet,
   productsDelete,
 };

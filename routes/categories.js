@@ -1,12 +1,13 @@
 const { Router } = require("express");
+const { check } = require("express-validator");
 const {
   categoriesGet,
   categoriesPost,
   categoriesPut,
-  /*   categoriesPatch, */
   categoriesDelete,
   categoryGet,
 } = require("../controllers/categoriesControl");
+const { existeCategoria } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -17,8 +18,7 @@ router.get("/:id", categoryGet);
 //creacion
 router.post("/", categoriesPost);
 //actualizacion
-router.put("/:id", categoriesPut);
+router.put("/:id", [check("id").custom(existeCategoria)], categoriesPut);
 router.delete("/:id", categoriesDelete);
-/* router.patch("/", categoriesPatch); */
 
 module.exports = router;

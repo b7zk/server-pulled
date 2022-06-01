@@ -22,9 +22,9 @@ const Producto = db.define(
     statusProduct: {
       type: DataTypes.BOOLEAN,
     },
-    /* catgNameProduct: {
+    nameCProduct: {
       type: DataTypes.STRING,
-    }, */
+    },
   },
   {
     timestamps: false,

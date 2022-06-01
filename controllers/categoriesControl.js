@@ -1,6 +1,5 @@
 const { response } = require("express");
-const Categoria = require("../models/categoria");
-const Producto = require("../models/producto");
+const { Categoria, Producto } = require("../models");
 
 //funciones (callbacks) {
 const categoriesGet = async (req, res) => {
@@ -60,7 +59,7 @@ const categoriesPut = async (req, res) => {
   const { body } = req;
   const { id } = req.params;
 
-  try {
+  /* try {
     //comprobar si ya existe la categoria
     const categoria = await Categoria.findByPk(id);
 
@@ -79,7 +78,7 @@ const categoriesPut = async (req, res) => {
     res.status(500).json({
       msg: "Hable con el administrador",
     });
-  }
+  } */
 };
 
 const categoriesDelete = async (req, res) => {

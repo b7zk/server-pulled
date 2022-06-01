@@ -1,6 +1,6 @@
 const { response } = require("express");
 const { Op } = require("sequelize");
-const Producto = require("../models/producto");
+const { Categoria, Producto } = require("../models");
 
 const buscar = async (req, res = response) => {
   const { termino } = req.params;
@@ -15,6 +15,11 @@ const buscar = async (req, res = response) => {
         },
         {
           descProduct: {
+            [Op.like]: `%${termino}%`,
+          },
+        },
+        {
+          nameCProduct: {
             [Op.like]: `%${termino}%`,
           },
         },

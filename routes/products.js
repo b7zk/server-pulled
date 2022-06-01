@@ -3,7 +3,7 @@ const {
   productsGet,
   productsPost,
   productsPut,
-  productsPatch,
+  productGet,
   productsDelete,
 } = require("../controllers/productsControl");
 
@@ -11,6 +11,7 @@ const router = Router();
 
 //endpoints
 router.get("/", productsGet);
+router.get("/:id", productGet);
 
 //creacion
 router.post("/", productsPost);
